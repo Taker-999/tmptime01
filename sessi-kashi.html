@@ -30,10 +30,10 @@
         }
         function temperatureToColor(celsius){
             // 0℃ → 240 (青), 50℃ → 60 (赤寄り)
-            let hue = 240 - (celsius / 60) * 180;
+            let hue = 240 - (celsius / 50) * 180;
 
-            hue = Math.max(hue, 60);
-
+            hue = Math.max(hue, 0);
+            console.log("Hue:",hue);
             return `hsl(${hue}, 100%, 50%)`;
         }
         function convert(){
