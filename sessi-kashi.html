@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摂氏から華氏への変換ツール</title>
+    <style>
+        body{
+        font-family: sans-serif;
+        padding: 2em;
+        }
+        label{
+        font-weight: bold;
+        }
+        input[type="range"]{
+            width: 400px;
+            margin-top:1em;
+        }
+        #result{
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 1em;
+            transition: color 0.5s ease;
+        }
+    </style>
+    <script>
+        function c2f(c) {
+            let f = c*1.8+32;
+            return Math.floor(f);
+        }
+        function temperatureToColor(celsius){
+            // 0℃ → 240 (青), 50℃ → 60 (赤寄り)
+            let hue = 240 - (celsius / 50) * 180;
+
+            hue = Math.max(hue, 50);
+
+            return `hsl(${hue}, 100%, 50%)`;
+        }
+        function convert(){
+            let c = document.getElementById("celsius").value;
+            let f = c2f(c);
+            let result = document.getElementById("result");
+            result.textContent = `(日)摂氏:${c}度 (米)華氏:${f}度`;
+            if(c === "50"){
+                result.style.color = "black";
+            }else{
+            result.style.color = temperatureToColor(c);
+            }
+        }
+        window.onload = convert; //初期表示も更新
+    </script>
+</head>
+<body>
+    <label for="celsius">摂氏温度</label><br>
+    <input id="celsius" type="range" min="0" max="100" oninput="convert()" style="width: 400px">
+    <p id="result"></p>
+</body>
+</html>
